@@ -15,8 +15,15 @@ namespace CGL
    */
   std::vector<Vector2D> BezierCurve::evaluateStep(std::vector<Vector2D> const &points)
   { 
-    // TODO Part 1.
-    return std::vector<Vector2D>();
+      std::vector<Vector2D> rst;
+
+      for (int i = 0; i < points.size() - 1; i++) {
+          Vector2D p1 = points[i];
+          Vector2D p2 = points[i + 1];
+
+          rst.push_back(t * p1 + (1 - t) * p2);
+      }
+    return rst;
   }
 
   /**
@@ -29,8 +36,15 @@ namespace CGL
    */
   std::vector<Vector3D> BezierPatch::evaluateStep(std::vector<Vector3D> const &points, double t) const
   {
-    // TODO Part 2.
-    return std::vector<Vector3D>();
+      std::vector<Vector3D> rst;
+
+      for (int i = 0; i < points.size() - 1; i++) {
+          Vector3D p1 = points[i];
+          Vector3D p2 = points[i + 1];
+
+          rst.push_back(t * p1 + (1 - t) * p2);
+      }
+    return rst;
   }
 
   /**
@@ -42,8 +56,11 @@ namespace CGL
    */
   Vector3D BezierPatch::evaluate1D(std::vector<Vector3D> const &points, double t) const
   {
-    // TODO Part 2.
-    return Vector3D();
+      std::vector<Vector3D> rst = points;
+      while (rst.size() > 1) {
+          rst = BezierPatch::evaluateStep(rst, t);
+      }
+    return rst[0];
   }
 
   /**
@@ -55,8 +72,12 @@ namespace CGL
    */
   Vector3D BezierPatch::evaluate(double u, double v) const 
   {  
-    // TODO Part 2.
-    return Vector3D();
+      std::vector<Vector3D> rst;
+      for (int i = 0; i < controlPoints.size(); i++) {
+          rst.push_back(evaluate1D(controlPoints[i], u));
+      }
+
+    return evaluate1D(rst, v);
   }
 
   Vector3D Vertex::normal( void ) const
@@ -65,7 +86,31 @@ namespace CGL
     // Returns an approximate unit normal at this vertex, computed by
     // taking the area-weighted average of the normals of neighboring
     // triangles, then normalizing.
-    return Vector3D();
+      Vector3D rst = Vector3D(0, 0, 0);
+
+      HalfedgeCIter h = this->halfedge();
+      do {
+          std::vector<Vector3D> vectors;
+
+          HalfedgeCIter vs = h;
+          for (int i = 0; i < 3; i++) {
+              vectors.push_back(vs->vertex()->position);
+              vs = vs->next();
+          }
+
+          Vector3D v1 = vectors[2] - vectors[0];
+          Vector3D v2 = vectors[2] - vectors[1];
+
+          Vector3D n = cross(v1, v2) / cross(v1, v2).norm();
+
+          float area = cross(v1, v2).norm() / 2;
+
+          rst = rst + n * area;
+
+          h = h->next();
+          
+      } while (h != this->halfedge());
+    return rst / rst.norm();
   }
 
   EdgeIter HalfedgeMesh::flipEdge( EdgeIter e0 )
