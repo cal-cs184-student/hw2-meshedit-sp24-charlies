@@ -155,7 +155,7 @@
   Briefly explain how you implemented the area-weighted vertex normals.
 </b>
 <p>
-    I implemented area weighted vertex normals by summing together the area weighted normal vectors to each face, then taking the result as a unit vector. This was done 
+    I implemented area weighted vertex normals by summing together the area weighted normal vectors to each face, then taking the result as a unit vector. This was done by first starting with the halfedge from the vertex object. This would allow us to iterate through each of the halfedges defining the face as well as retrieving the vertices for that face. Using the 3 vertices, we are able to compute 2 vectors that define the surface of the face and compute the unit normal vector (cross project of two vectors divided by norm) and the area (half of the magnitude of the cross product), which we multiplied together to form the area weight normal for one of the faces. We then moved onto the next halfedge from the original vertex, which we got by taking the twin of the original halfedge then iterating to the next halfedge. This process would continue until we reached our original half edge. We kept a running sum of each area weighted normal, which we normalized to get our final vector that we would use for shading.
 </p>
 <br>
 
@@ -163,9 +163,21 @@
 <b>
   Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/3a1.png" align="middle" width="400px"/>
+        <figcaption>Without vertex normals</figcaption>
+      </td>
+      <td>
+        <img src="images/3a2.png" align="middle" width="400px"/>
+        <figcaption>With vertex normals</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
 <br>
 
 
