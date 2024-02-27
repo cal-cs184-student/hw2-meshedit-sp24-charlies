@@ -4,3 +4,7 @@ build/
 *.json
 out/
 Debug/
+
+meshedit.exe
+lib/
+include/
