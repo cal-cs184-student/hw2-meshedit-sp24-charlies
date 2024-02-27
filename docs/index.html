@@ -41,7 +41,7 @@
 
 <h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2018</h1>
 <h1 align="middle">Project 2: Mesh Edit</h1>
-<h2 align="middle">YOUR NAME</h2>
+<h2 align="middle">Charlie Shou and Sebastian Zhao</h2>
 
 <br><br>
 
@@ -63,7 +63,7 @@
   Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    De Casteljau's algorithm is a way of evaluating Bezuer curves by linearly interpolating from a set of points in 2D space. Given n points, we recursively evalutate subdivision levels (each of which produce n - 1 points), until we get a single point. Parametrized with t (which is defined between 0 and 1), we are able to define the Bezier curve itself. Our implementation implements a single evaluation step that reduces a list of n points to n - 1 points, which are them recursively called in the main function. Given a value for t, we evalutated the points such that the ith point in the subsequent list of points is equal to t * points[i] + (1 - t) points[i + 1] if points is the list of points given as an input.
 </p>
 <br>
 
@@ -72,11 +72,11 @@
   Take a look at the provided .bzc files and create your own Bezier curve with 6 control points of your choosing. Use this Bezier curve for your screenshots below.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    Below is a Bezier curve of 6 points
 </p>
 <!-- Example of including a single figure -->
 <div align="middle">
-  <img src="images/your_file.png" align="middle" width="50%">
+  <img src="images/1a.png" align="middle" width="50%">
 </div>
 <br>
 
@@ -88,29 +88,29 @@
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/1b0.png" align="middle" width="400px"/>
         <figcaption>Level 0</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/1b1.png" align="middle" width="400px"/>
         <figcaption>Level 1</figcaption>
       </td>
     </tr>
     <br>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/1b2.png" align="middle" width="400px"/>
         <figcaption>Level 2</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/1b3.png" align="middle" width="400px"/>
         <figcaption>Level 3</figcaption>
       </td>
     </tr>
     <br>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/1b4.png" align="middle" width="400px"/>
         <figcaption>Level 4</figcaption>
       </td>
     </tr>
@@ -122,10 +122,10 @@
 <b>
   Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter \(t\) via mouse scrolling.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>  
-<br>
+<div align="middle">
+  <img src="images/1c.png" align="middle" width="50%">
+</div>
+<br>  
 
 
 <h3 align="middle">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h3>
@@ -133,7 +133,7 @@
   Briefly explain how de Casteljau algorithm extends to Bezier surfaces and how you implemented it in order to evaluate Bezier surfaces.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    We used a very similar algorithm to generate our Bezier surfaces. This was very similar to de Casteljau algorithm since we are still working with a list of points, but the difference is that it is a n x n grid of points rather than just a list of n points. We are able to essentially use de Casteljau's algorithm for each of the n list to retrieve a list of n points for some parameter u. With the new list of points, we can run through the algorithm again parametrized on v to get a single point on our Bezier surface. The algorithm parametrized on u and v then defines the surface. We evaluated a single step (similar to how we did it in part 1) in our evaluateStep function. We recursively applied that step to generate a single point in evaluate1D. We then combined everything together in the final evaluate function, which first used evaluate1D to reduce the n x n grid into a list of n points, then used it again to retrieve a single point.
 </p>
 <br>
 
@@ -141,9 +141,9 @@
 <b>
   Show a screenshot of bez/teapot.bez (not .dae) evaluated by your implementation.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <img src="images/2a.png" align="middle" width="50%">
+</div>
 <br>
 
 
@@ -155,7 +155,7 @@
   Briefly explain how you implemented the area-weighted vertex normals.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    I implemented area weighted vertex normals by summing together the area weighted normal vectors to each face, then taking the result as a unit vector. This was done 
 </p>
 <br>
 

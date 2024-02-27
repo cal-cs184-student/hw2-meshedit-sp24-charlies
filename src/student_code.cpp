@@ -107,7 +107,7 @@ namespace CGL
 
           rst = rst + n * area;
 
-          h = h->next();
+          h = h->twin()->next();
           
       } while (h != this->halfedge());
     return rst / rst.norm();
