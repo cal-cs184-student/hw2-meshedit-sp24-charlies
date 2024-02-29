@@ -186,7 +186,7 @@
   Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    I followed the advice to specify all of the attributes of mesh elements regardless of if they're changed. I made a diagram of the before and after of the edge flip. Besides that, I just did basic pointer manipulation, and manipulated it such that the edge was connecting the other vertices.
 </p>
 <br>
 
@@ -194,9 +194,22 @@
 <b>
   Show screenshots of the teapot before and after some edge flips.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/pre_flip.png" align="middle" width="400px"/>
+        <figcaption>Pre flip</figcaption>
+      </td>
+      <td>
+        <img src="images/post_flip.png" align="middle" width="400px"/>
+        <figcaption>Post flip</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
+<br>
 <br>
 
 
@@ -204,7 +217,7 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    Luckily I didn't have to debug anything, my implementation worked.
 </p>
 <br>
 
@@ -214,7 +227,7 @@
   Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    I followed the procedure above of drawing a diagram and to potentially do redundant assignments to ensure correctness. I first implemented it such that I discarded the original edge and half-edges, but ran into problems in the next part. Thus, I changed my diagram to keep the initial edge.
 </p>
 <br>
 
@@ -222,18 +235,42 @@
 <b>
     Show screenshots of a mesh before and after some edge splits. 
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/pre_flip.png" align="middle" width="400px"/>
+        <figcaption>Pre split</figcaption>
+      </td>
+      <td>
+        <img src="images/post_split.png" align="middle" width="400px"/>
+        <figcaption>Post split</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
 <br>
 
 
 <b>
     Show screenshots of a mesh before and after a combination of both edge splits and edge flips.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/pre_flip.png" align="middle" width="400px"/>
+        <figcaption>Pre split and flip</figcaption>
+      </td>
+      <td>
+        <img src="images/post_flip_split.png" align="middle" width="400px"/>
+        <figcaption>Post split and flip</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
 <br>
 
 
@@ -241,7 +278,7 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    I didn't have to debug carefully, my first implementation was also luckily fine this time. I did more debugging afterwards to allow it to be compatible with the next part however.
 </p>
 <br>
 
@@ -250,7 +287,7 @@
     If you have implemented support for boundary edges, show screenshots of your implementation properly handling split operations on boundary edges.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    NA
 </p>
 <br>
 
@@ -260,7 +297,7 @@
   Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    I followed the outline provided in the comments and described in the part. First, I calculated the new positions of new vertices and old vertices according to the formula, split all edges, and then flipped edges that connected old vertices to new. Finally, I updated the positions of old vertices. One trick I used was that to find a segfault I had, I commented out code selectively and figured out it was a problem with my for loop, and then subsequently a problem with my implementation of edge splits. I also had a problem with calculating the sum of the neighbors because I thought it was already done with computeCentroid, and printed out the centroid to see it was uninitialized.
 </p>
 <br>
 
@@ -268,18 +305,81 @@
 <b>
   Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
 </b>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/iter0.png" align="middle" width="400px"/>
+        <figcaption>Iteration 0</figcaption>
+      </td>
+      <td>
+        <img src="images/iter1.png" align="middle" width="400px"/>
+        <figcaption>Iteration 1</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+      <td>
+        <img src="images/iter2.png" align="middle" width="400px"/>
+        <figcaption>Iteration 2</figcaption>
+      </td>
+      <td>
+        <img src="images/iter3.png" align="middle" width="400px"/>
+        <figcaption>Iteration 3</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+      <td>
+        <img src="images/iter4.png" align="middle" width="400px"/>
+        <figcaption>Iteration 4</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
+As you do loop subdivision, sharp edges are reduced and turned smoother, and there is less jaggedness in the overall shape (or at the very least it looks smoother).  
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/iter4.png" align="middle" width="400px"/>
+        <figcaption>Regular subdivision</figcaption>
+      </td>
+      <td>
+        <img src="images/split_subdivide.png" align="middle" width="400px"/>
+        <figcaption>Split subdivision</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
+<br>
 <p>
-    YOUR RESPONSE GOES HERE
+In this case, I lessened the effect of smoothing by creating a bunch of edges leading to the same vertex by splitting. Then, as they are repeatedly smoothed, there is still the outline of the redundant lines. 
 </p>
 <br>
-
 
 <b>
   Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    I preprocessed the edges with edge splits (1 on the middle on each side) in order to ensure that the edges at the start are symmetric. This matters as loop subdivision depends upon the starting mesh and what edges and vertices exist at the start. Since the mesh is asymmetric at the start, even though it is correctly in the shape of a cube, the inferred shape as you continue to loop subdivide is asymmetric. This makes sense as the created vertexes and edges will be weighed based upon the neighbors, and the neighbors tend to be concentrated in a specific direction which will influence the inferred shape. By evening out the asymmetry at the start, this no longer occurs. The figure below demonstrates the symmetric cube. 
 </p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/iter4.png" align="middle" width="400px"/>
+        <figcaption>Regular subdivision</figcaption>
+      </td>
+      <td>
+        <img src="images/even_subdivide.png" align="middle" width="400px"/>
+        <figcaption>Even subdivision</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
 <br>
 
 
